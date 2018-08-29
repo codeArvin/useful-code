@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <style>
+    #box {
+      width: 400px;
+      height: 300px;
+      background-color: lightgray;
+      position: absolute;
+      top: 100px;
+      left: 400px;
+    }
+
+    #head {
+      text-align: center;
+      line-height: 50px;
+      height: 50px;
+      background-color: rgb(196, 94, 227);
+    }
+
+    #body {
+      text-align: center;
+      margin-top: 10px;
+    }
+  </style>
+  <title>Drag Show</title>
+</head>
+<body>
+  <div id="box">
+    <div id="head">我是可拖拽区域</div>
+    <div id="body">我是主体部分</div>
+  </div>
+</body>
+<script src="./drag.js"></script>
+<script>
+  drag('head', 'box');
+</script>
+</html>

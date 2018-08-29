@@ -4,7 +4,7 @@
  * @Email:  codearvin@gmail.com
  * @Filename: util.js
  * @Last modified by:   codearvin
- * @Last modified time: 2018-08-21 01:39:11
+ * @Last modified time: 2018-08-23 12:01:16
  * @description: 一些小的工具函数
  */
 
@@ -38,9 +38,23 @@ function createExcelLikeString(index) {
  * 返回变量的类型
  *
  * @param  {variable} variable js 变量
- * @return {string}          [object Array] [object Object] 这种
+ * @return {string}            boolean number string ...
  */
-export const getVariableType = variable => Object.prototype.toString.call(variable);
+export const getVariableType = variable => {
+    const map = {
+        '[object Boolean]': 'boolean',
+        '[object Number]': 'number',
+        '[object String]': 'string',
+        '[object Function]': 'function',
+        '[object Array]': 'array',
+        '[object Date]': 'date',
+        '[object RegExp]': 'regExp',
+        '[object Undefined]': 'undefined',
+        '[object Null]': 'null',
+        '[object Object]': 'object'
+    };
+    return map[Object.prototype.toString.call(variable)];
+};
 
 
 /**

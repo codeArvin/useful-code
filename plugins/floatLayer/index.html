@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="./floatLayer.css">
+  <style>
+  button {
+    display: block;
+    width: 200px;
+    height: 40px;
+    background-color: rgb(13, 231, 65);
+    border: none;
+    margin: 0 auto;
+    cursor: pointer;
+  }
+  </style>
+  <title>FloatLayer Show</title>
+</head>
+<body>
+  <button id="show">显示浮出层</button>
+</body>
+<script src="./floatLayer.js"></script>
+<script>
+  var info = {
+    'text': {
+      'title': '这是头部',
+      'body': '这是主体部分',
+      'buttons': {
+        'submit': '确认',
+        'cancel': '取消'
+      }
+    },
+    'config': {
+      'scroll': false
+    }
+  };
+  var floatLayer = new FloatLayer(info);
+  var show = document.getElementById('show');
+  show.addEventListener('click', function() {
+    floatLayer.show();
+  });
+</script>
+</html>

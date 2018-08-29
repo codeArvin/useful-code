@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <style>
+  div {
+    width: 300px;
+    height: 200px;
+    background: lightgray;
+    margin: 200px auto;
+    color: white;
+    text-align: center;
+  }
+  </style>
+  <title>Scale Show</title>
+</head>
+<body>
+  <div id="div">
+    拖拽四边或四角
+  </div>
+</body>
+<script src="./scale.js"></script>
+<script>
+var config = {
+  'range': [100,700,100,700],
+  'canEdge': []
+}
+  scale('div', config);
+</script>
+</html>
