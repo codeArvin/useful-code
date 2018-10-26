@@ -4,7 +4,7 @@
  * @Email:  codearvin@gmail.com
  * @Filename: util.js
  * @Last modified by:   codearvin
- * @Last modified time: 2018-08-23 12:01:16
+ * @Last modified time: 2018-10-26 07:23:09
  * @description: 一些小的工具函数
  */
 
@@ -149,3 +149,49 @@ export function strEllipsis(str, length) {
     }
     return str;
 }
+
+
+/**
+ * 把一个对象扁平化，对象中应只包含基本类型、数组、对象
+ * @method flattenObj
+ * @param  {object} obj Object
+ * @return {object}     扁平化处理的对象，key为对应值的取值路径
+ * @description 其实就是求对象内部基本类型值的取值路径，肯定采用递归，但并不是采用返回值的方式，而是在最深处进行处理
+ *              内部的 f 函数中 value 是要处理的值， path 是 value 对应的取值路径
+ */
+function flattenObj(obj) {
+    const result = {};
+    function f(value, path = '') {
+        const type = getVariableType(value);
+        if (['object', 'array'].indexOf(type) !== -1) {
+            for (let k in value) {
+                const _k = type === 'array' ? `[${k}]` : `.${k}`;
+                f(value[k], `${path}${_k}`);
+            }
+        } else {
+            result[path.slice(1)] = value;
+        }
+    }
+    f(obj);
+    return result;
+}
+
+/**
+ * 获得该函数运行时所在的文件路径
+ * @method getFuncRunPath
+ * @return {string | null}       返回文件路径或 null
+ * @description 函数运行时获得错误栈，运行时所在文件路径就在错误栈里面，根据一定规则取出来
+ */
+function getFuncRunPath() {
+    const error = new Error().stack.toString();
+    const regex = /at \S+ \(.*\)/g;
+    const match = error.match(regex);
+    const length = match.length;
+    for (let i = 0 ; i < length - 1; i++) {
+        if (match[i + 1].match(/Module._compile/)) {
+            const result = match[i].match(/\((.*)\)/);
+            return result && result[1];
+        }
+    }
+    return null;
+};
