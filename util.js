@@ -194,4 +194,31 @@ function getFuncRunPath() {
         }
     }
     return null;
-};
+}
+
+/**
+ * 返回一个函数代理，可以无限读取属性，并再执行的函数中可以获取到属性路径
+ * @param {String} path 需要储存的路径
+ */
+function getPropPath(path = '') {
+    function _func() {
+        if (path[0] === '.') {
+            path = path.slice(1);
+        }
+        console.log(`path: ${path}`);
+    }
+    return new Proxy(_func, {
+        get: (target, key) => getPropPath(`${path}.${key}`)
+    })
+}
+
+// 存在的属性正常读取，不存在的属性可以无限读取，返回一个可执行的函数，函数中可以获取到属性路径
+const T = new Proxy({}, {
+    get: (target, key) => {
+        if (target[key]) {
+            return target[key];
+        } else {
+            return getPropPath(key);
+        }
+    }
+})
